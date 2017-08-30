@@ -176,11 +176,12 @@ def check_file(path, flake8ignore, maxlength, maxcomplexity,
         args += ['--show-source']
     if statistics:
         args += ['--statistics']
+    if flake8ignore:
+        args += ['--ignore', ','.join(flake8ignore)]
     app = application.Application()
     app.find_plugins()
     app.register_plugin_options()
     app.parse_configuration_and_cli(args)
-    app.options.ignore = flake8ignore
     app.make_formatter()  # fix this
     app.make_notifier()
     app.make_guide()
